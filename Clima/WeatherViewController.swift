@@ -14,7 +14,7 @@ class WeatherViewController: UIViewController , CLLocationManagerDelegate{
     
     //Constants
     let WEATHER_URL = "http://api.openweathermap.org/data/2.5/weather"
-    let APP_ID = "4759ac9ac19e0b7a3bf8c5977b1ccd3a"
+    let APP_ID = "32c4afa13b0a24a21c77ba4fb0878245"
     
     let locationManager = CLLocationManager()
     //TODO: Declare instance variables here
@@ -35,6 +35,7 @@ class WeatherViewController: UIViewController , CLLocationManagerDelegate{
         locationManager.requestWhenInUseAuthorization()
         locationManager.startUpdatingLocation() //Asychronize method which it works in the background to try and grab the GPS location
         //TODO:Set up the location manager here.
+
         
         
     }
@@ -52,6 +53,9 @@ class WeatherViewController: UIViewController , CLLocationManagerDelegate{
             response in
             if response.result.isSuccess{
                 print("Sucess! Got the weather data")
+                let weatherJSON : JSON = JSON(response.result.value!)
+                self.updateWeatherData(json: weatherJSON)
+                print(weatherJSON)
             }else{
                 print("Error \(String(describing: response.result.error))")
                 self.cityLabel.text = "Connection Issues"
@@ -67,7 +71,9 @@ class WeatherViewController: UIViewController , CLLocationManagerDelegate{
    
     
     //Write the updateWeatherData method here:
-    
+    func updateWeatherData(json : JSON ){
+        let tempReslt = json["main"]["temp"]
+    }
 
     
     
